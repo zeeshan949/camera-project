@@ -13,8 +13,7 @@
 *.iml
 *.ipr
 *.iws
-camera_application/.idea/
-camera_api/.idea/
+.idea/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -24,13 +23,13 @@ camera_api/.idea/
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
-camera_application.dart_tool/
-camera_application.flutter-plugins
-camera_application.flutter-plugins-dependencies
-camera_application.packages
-camera_application.pub-cache/
-camera_application.pub/
-camera_application/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
 
 # Web related
 lib/generated_plugin_registrant.dart
