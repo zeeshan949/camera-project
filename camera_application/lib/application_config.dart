@@ -1,1 +1,1 @@
-const String BASE_API_URL="http://10.0.2.2:8080/api";
+const String BASE_API_URL="http://ec2-54-82-3-245.compute-1.amazonaws.com:8080/camera-api/api";

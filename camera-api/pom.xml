@@ -14,7 +14,8 @@
 	<name>camera-api</name>
 	<description>Project for Flutter Camera API</description>
 	<properties>
-		<java.version>11</java.version>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
 	<dependencies>
 
