@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/camera-api
-    username: root
-    password:
+    url: jdbc:mysql://camera-db.ciw77hgxna42.us-east-1.rds.amazonaws.com:3306/camera-api
+    username: admin
+    password: admin123
   jpa:
     generate-ddl: false
     multipart:

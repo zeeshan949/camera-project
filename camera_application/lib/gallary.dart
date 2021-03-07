@@ -98,15 +98,13 @@ class _GallaryState extends State<GallaryPage> {
 
 
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-        onWillPop: () async => false,
         child: new Scaffold(
           appBar: AppBar(
               title: Text('Your Uploaded Images'),
               elevation: 24.0,
-              automaticallyImplyLeading: false,
               centerTitle: true,
               actions: <Widget>[
                 new IconButton(

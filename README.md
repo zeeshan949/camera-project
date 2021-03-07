@@ -3,6 +3,14 @@
 Login Screen
 ![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/Login.PNG "Login Screen")
 
+Home Screen
+
+![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/HomeScreen.PNG "Home Screen")
+
+Map Screen
+
+![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/MapScreen.PNG "Map Screen")
+
 Main Screen
 
 ![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/MianScreenEmpty.PNG "Main Screen")

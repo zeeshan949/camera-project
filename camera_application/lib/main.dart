@@ -1,4 +1,5 @@
 
+import 'package:camera_application/home.dart';
 import 'package:camera_application/model/login_response.dart';
 import 'package:camera_application/photo_service.dart';
 import 'package:flutter/material.dart';
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
               storage.write(key: "jwt", value: loginResponse.accessToken);
               storage.write(key: "userId", value: loginResponse.id.toString());
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GallaryPage()));
+                  MaterialPageRoute(builder: (context) => HomePage()));
               setState(() {
                 _usernameController.text = "";
                 _passwordController.text = "";

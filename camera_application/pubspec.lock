@@ -205,6 +205,47 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  location:
+    dependency: "direct dev"
+    description:
+      name: location
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.5.4"
+  mapbox_gl:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "5df934232034988c516da11c6c72f4eee119822c"
+      url: "https://github.com/tobrun/flutter-mapbox-gl.git"
+    source: git
+    version: "0.10.0"
+  mapbox_gl_dart:
+    dependency: transitive
+    description:
+      name: mapbox_gl_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
+  mapbox_gl_platform_interface:
+    dependency: transitive
+    description:
+      path: mapbox_gl_platform_interface
+      ref: HEAD
+      resolved-ref: "5df934232034988c516da11c6c72f4eee119822c"
+      url: "https://github.com/tobrun/flutter-mapbox-gl.git"
+    source: git
+    version: "0.10.0"
+  mapbox_gl_web:
+    dependency: transitive
+    description:
+      path: mapbox_gl_web
+      ref: HEAD
+      resolved-ref: "5df934232034988c516da11c6c72f4eee119822c"
+      url: "https://github.com/tobrun/flutter-mapbox-gl.git"
+    source: git
+    version: "0.10.0"
   matcher:
     dependency: transitive
     description:
