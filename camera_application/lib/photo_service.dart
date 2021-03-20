@@ -4,12 +4,29 @@ import 'dart:io';
 import 'package:camera_application/model/login_request.dart';
 import 'package:camera_application/model/login_response.dart';
 import 'package:camera_application/model/photo.dart';
+import 'package:camera_application/model/user.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:dio/dio.dart';
+import 'package:path/path.dart';
 import 'application_config.dart';
 import 'main.dart';
 
 class PhotoService {
+  static var dio = Dio();
+
+  static Future<List<User>> getUsers(String url) async {
+    try {
+      Response response = await dio.get("https://reqres.in/api/users?page=1&per_page=11");
+
+      Map<String, dynamic> responseBody = response.data;
+
+      return (responseBody['data'] as List<dynamic>)
+          .map((x) => User.fromJson(x))
+          .toList();
+    } catch (error, stacktrace) {
+      throw Exception("Exception occured: $error stackTrace: $stacktrace");
+    }
+  }
 
 
   static Future login(String username, String password) async {

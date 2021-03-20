@@ -75,8 +75,7 @@ class _GallaryState extends State<GallaryPage> {
               child: new Text("Yes"),
               onPressed: () {
                 logOut();
-                int count = 0;
-                Navigator.of(context).popUntil((_) => count++ >= 2);
+                Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/login'));
               },
             ),
             new ElevatedButton(
