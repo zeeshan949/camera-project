@@ -1,0 +1,9 @@
+{
+  "home": {
+    "page" : "Home Page",
+    "map" : "Map",
+    "gallery":"Gallery",
+    "user_list": "Users List",
+    "settings" : "Settings"
+  }
+}

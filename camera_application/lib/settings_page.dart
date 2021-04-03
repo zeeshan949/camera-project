@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:camera_application/mbtiles_image_provider.dart';
 import 'package:camera_application/state/application_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:path/path.dart' as path;
@@ -15,6 +15,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'dart:math';
 import 'package:flutter_mbtiles_extractor/flutter_mbtiles_extractor.dart';
 import 'main.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -54,23 +56,26 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Padding(
           padding: EdgeInsets.all(10.0),
           child: LinearPercentIndicator(
-            width: 250.0,
+            width: 200.0,
             lineHeight: 14.0,
             percent: applicationState.downloadPercent,
             backgroundColor: Colors.grey,
             progressColor: Colors.green,
-            trailing: Text("(" +
-                formatBytes(applicationState.downloadedProgressFileSize, 2) +
-                " / " +
-                formatBytes(applicationState.totalDownloadFileSize, 2) +
-                ")", style: TextStyle(fontSize: 10),),
+            trailing: Text(
+              "(" +
+                  formatBytes(applicationState.downloadedProgressFileSize, 2) +
+                  " / " +
+                  formatBytes(applicationState.totalDownloadFileSize, 2) +
+                  ")",
+              style: TextStyle(fontSize: 10),
+            ),
           ),
         ))
       ])
     ]);
 
     var extractProgress =
-    Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Row(children: [
         Expanded(
             child: Padding(
@@ -80,16 +85,19 @@ class _SettingsPageState extends State<SettingsPage> {
       Row(children: [
         Expanded(
             child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: LinearPercentIndicator(
-                width: 250.0,
-                lineHeight: 14.0,
-                percent: double.parse(applicationState.extractPercent)/100,
-                backgroundColor: Colors.grey,
-                progressColor: Colors.lightGreenAccent,
-                trailing: Text("(" + applicationState.extractPercent.toString() + "%)", style: TextStyle(fontSize: 10),),
-              ),
-            ))
+          padding: EdgeInsets.all(10.0),
+          child: LinearPercentIndicator(
+            width: 200.0,
+            lineHeight: 14.0,
+            percent: double.parse(applicationState.extractPercent) / 100,
+            backgroundColor: Colors.grey,
+            progressColor: Colors.lightGreenAccent,
+            trailing: Text(
+              "(" + applicationState.extractPercent.toString() + "%)",
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ))
       ])
     ]);
 
@@ -119,13 +127,21 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Expanded(
                       child: ListTile(
-                        leading: Icon(Icons.map, color: isOfflineMaps ? Colors.greenAccent : Colors.redAccent,),
+                        leading: Icon(
+                          Icons.map,
+                          color: isOfflineMaps
+                              ? Colors.greenAccent
+                              : Colors.redAccent,
+                        ),
                         title: Text("Offline Maps"),
                         trailing: IconButton(
                             icon: Icon(isOfflineMaps
                                 ? Icons.delete
                                 : Icons.arrow_downward),
-                            onPressed: !applicationState.isMapsDownloadInprogress ? _onDownloadButtonPressed : _onDownloadButtonPressed),
+                            onPressed:
+                                !applicationState.isMapsDownloadInprogress
+                                    ? _onDownloadButtonPressed
+                                    : _onDownloadButtonPressed),
                       ),
                     )
                   ],
@@ -135,19 +151,49 @@ class _SettingsPageState extends State<SettingsPage> {
                     : Row(),
                 applicationState.isMapsDownloadClicked
                     ? extractProgress
-                    : Row()
+                    : Row(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                          leading: FaIcon(FontAwesomeIcons.language),
+                          title: Text("Language " + getLanguage(context)),
+                          trailing: IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed:() {
+                              changeLocale(context);
+                            },
+                          )),
+                    ),
+                  ],
+                )
               ],
             )));
       }),
     );
   }
 
-  void _onDownloadButtonPressed() async {
+  void changeLocale(BuildContext context) {
+    if (context.locale.languageCode == "ar") {
+      context.locale = new Locale("en");
+    } else {
+      context.locale = new Locale("ar");
+    }
+  }
 
-    if(applicationState.isMapsDownloaded){
+  String getLanguage(BuildContext context) {
+    if (context.locale.languageCode == "ar") {
+      return "Arabic";
+    } else {
+      return "English";
+    }
+  }
+
+  void _onDownloadButtonPressed() async {
+    if (applicationState.isMapsDownloaded) {
       await deleteOfflineMaps();
       applicationState.isMapsDownloaded = false;
-    }else{
+    } else {
       applicationState.extractPercent = "0";
       applicationState.downloadPercent = 0;
       applicationState.totalDownloadFileSize = 0;
@@ -171,13 +217,13 @@ class _SettingsPageState extends State<SettingsPage> {
         suffixes[i];
   }
 
-  Future<void> deleteOfflineMaps()async {
+  Future<void> deleteOfflineMaps() async {
     Directory appDirectory = await getApplicationDocumentsDirectory();
     String pathToFile = appDirectory.path + '/maps';
     final dir = Directory(pathToFile);
-    if(dir.existsSync()){
+    if (dir.existsSync()) {
       dir.deleteSync(recursive: true);
-    }else{
+    } else {
       print("Directory does not exist");
     }
 
@@ -203,12 +249,11 @@ class _SettingsPageState extends State<SettingsPage> {
         } else if (double.parse(downloadProgress) < 100) {}
       },
       deleteOnError: true,
-    ).then((_) async{
-        if (downloadProgress == '100') {
-          applicationState.isMapsDownloadInprogress = false;
-          applicationState.isMapsDownloaded = true;
-        }
-
+    ).then((_) async {
+      if (downloadProgress == '100') {
+        applicationState.isMapsDownloadInprogress = false;
+        applicationState.isMapsDownloaded = true;
+      }
     });
   }
 
@@ -221,10 +266,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<void> _extractMBTilesFile() async {
     try {
-
       Directory appDirectory = await getApplicationDocumentsDirectory();
       String pathToFile = appDirectory.path + '/maps.mbtiles';
-
 
       ExtractResult extractResult = await MBTilesExtractor.extractMBTilesFile(
         //Path of the selected file.
@@ -252,7 +295,8 @@ class _SettingsPageState extends State<SettingsPage> {
             applicationState.extractPercent = "100";
           } else {
             applicationState.isMapsExtractInprogress = true;
-            applicationState.extractPercent = '${(percent * 100).toStringAsFixed(2)}';
+            applicationState.extractPercent =
+                '${(percent * 100).toStringAsFixed(2)}';
           }
         },
       );
@@ -276,7 +320,8 @@ class _SettingsPageState extends State<SettingsPage> {
               child: new Text("Yes"),
               onPressed: () {
                 logOut();
-                Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/login'));
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/login', ModalRoute.withName('/login'));
               },
             ),
             new ElevatedButton(

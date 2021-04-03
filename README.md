@@ -7,6 +7,14 @@ Home Screen
 
 ![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/HomeScreen.PNG "Home Screen")
 
+Home Screen Arabic
+
+![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/Arabic_Lang.PNG "Home Screen Arabic")
+
+Map Screen POI
+
+![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/Response_Unit.PNG "Map Screen POI")
+
 Map Screen
 
 ![Alt text](https://github.com/zeeshan949/camera-project/blob/main/imgs/MapScreen.PNG "Map Screen")

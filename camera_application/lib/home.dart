@@ -13,6 +13,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'dart:io';
 import 'main.dart';
 import 'package:connectivity/connectivity.dart';
+import 'generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -79,7 +82,7 @@ class _HomeState extends State<HomePage> {
         onWillPop: () async => false,
         child: new Scaffold(
             appBar: AppBar(
-                title: Text('Home Page'),
+                title: Text(LocaleKeys.home_page.tr()),
                 elevation: 24.0,
                 automaticallyImplyLeading: false,
                 centerTitle: true,
@@ -102,7 +105,7 @@ class _HomeState extends State<HomePage> {
                       Navigator.pushNamed(context, '/maps');
                     },
                     child: makeDashboardItem(
-                        "Map", Icon(Icons.map, size: 40.0, color: Colors.red)),
+                        LocaleKeys.home_map.tr(), Icon(Icons.map, size: 40.0, color: Colors.red)),
                     behavior: HitTestBehavior.opaque,
                   ),
                   GestureDetector(
@@ -110,7 +113,7 @@ class _HomeState extends State<HomePage> {
                       Navigator.pushNamed(context, '/gallery');
                     },
                     child: makeDashboardItem(
-                        "Gallery",
+                        LocaleKeys.home_gallery.tr(),
                         Icon(Icons.photo_library,
                             size: 40.0, color: Colors.blue)),
                     behavior: HitTestBehavior.opaque,
@@ -120,7 +123,7 @@ class _HomeState extends State<HomePage> {
                       Navigator.pushNamed(context, '/users');
                     },
                     child: makeDashboardItem(
-                        "Users List",
+                        LocaleKeys.home_user_list.tr(),
                         Icon(Icons.supervised_user_circle,
                             size: 40.0, color: Colors.green)),
                     behavior: HitTestBehavior.opaque,
@@ -130,7 +133,7 @@ class _HomeState extends State<HomePage> {
                       Navigator.pushNamed(context, '/settings');
                     },
                     child: makeDashboardItem(
-                        "Settings",
+                        LocaleKeys.home_settings.tr(),
                         Icon(Icons.settings,
                             size: 40.0, color: Colors.deepPurple)),
                     behavior: HitTestBehavior.opaque,

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:camera_application/mbtiles_image_provider.dart';
 import 'package:camera_application/state/application_state.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'main.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -63,12 +63,14 @@ class _MapsPageState extends State<MapsPage> {
             ),
           ]),
       body: Consumer<ApplicationState>(builder: (context, provider, child) {
-
         marketList = provider.marketList;
-        
+
         marketList.clear();
-        marketList.add(createMarker(LatLng(25.197525, 55.274288)));
-        marketList.add(createMarker(LatLng(24.413, 54.4745)));
+        marketList.add(createMarker(LatLng(25.197525, 55.274288), FaIcon(FontAwesomeIcons.carCrash, color: Colors.redAccent,)));
+        marketList.add(createMarker(LatLng(25.199315, 55.273288), FaIcon(FontAwesomeIcons.ambulance, color: Colors.green,)));
+        marketList.add(createMarker(LatLng(25.186420, 55.284288), FaIcon(FontAwesomeIcons.ambulance, color: Colors.green,)));
+        marketList.add(createMarker(LatLng(25.179315, 55.274288), FaIcon(FontAwesomeIcons.ambulance, color: Colors.green,)));
+        marketList.add(createMarker(LatLng(24.413, 54.4745), FaIcon(FontAwesomeIcons.language, color: Colors.redAccent,)));
 
         if (provider.isInternetAvailable) {
           return FlutterMap(
@@ -81,9 +83,10 @@ class _MapsPageState extends State<MapsPage> {
             ),
             layers: [
               TileLayerOptions(
-                  urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: ['a', 'b', 'c']
-              ),MarkerLayerOptions(markers: marketList),
+                  urlTemplate:
+                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  subdomains: ['a', 'b', 'c']),
+              MarkerLayerOptions(markers: marketList),
             ],
           );
         }
@@ -91,37 +94,56 @@ class _MapsPageState extends State<MapsPage> {
         return FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            center: LatLng(25.197525, 55.274288),
-            swPanBoundary: LatLng(24.1156, 54.0067),
-            nePanBoundary: LatLng(25.8603, 55.8446),
-            zoom: 12.0,
-            minZoom: 12.0,
-            maxZoom: 16.0
-          ),
+              center: LatLng(25.197525, 55.274288),
+              swPanBoundary: LatLng(24.1156, 54.0067),
+              nePanBoundary: LatLng(25.8603, 55.8446),
+              zoom: 12.0,
+              minZoom: 12.0,
+              maxZoom: 16.0),
           layers: [
             TileLayerOptions(
               tileProvider: FileTileProvider(),
-              urlTemplate: applicationState.applicationDirectoryPath +
-                  "/maps/{z}/{x}/{y}.png",
-            ),MarkerLayerOptions(markers: marketList),
+              urlTemplate: //applicationState.applicationDirectoryPath +
+                  //"/maps/{z}/{x}/{y}.png",
+              "/data/data/com.cameraapp.camera_application/app_flutter/maps/{z}/{x}/{y}.png",
+            ),
+            MarkerLayerOptions(markers: marketList),
           ],
         );
-
-
       }),
     );
   }
 
-  Marker createMarker(LatLng latLng, ){
+  /*
+  Marker createMarker(
+    LatLng latLng,
+  ) {
     return Marker(
       width: 50.0,
       height: 50.0,
       point: latLng,
       builder: (ctx) => Container(
-        child: Icon(Icons.location_on, color: Colors.redAccent,),
+        child: Icon(
+          Icons.location_on,
+          color: Colors.redAccent,
+        ),
       ),
     );
   }
+*/
+  Marker createMarker(
+      LatLng latLng, FaIcon icon
+      ) {
+    return Marker(
+      width: 50.0,
+      height: 50.0,
+      point: latLng,
+      builder: (ctx) => Container(
+        child: icon
+      ),
+    );
+  }
+
 
   void _showDialog(BuildContext context) {
     // flutter defined function
@@ -136,7 +158,8 @@ class _MapsPageState extends State<MapsPage> {
               child: new Text("Yes"),
               onPressed: () {
                 logOut();
-                Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/login'));
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/login', ModalRoute.withName('/login'));
               },
             ),
             new ElevatedButton(

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:camera_application/mbtiles_image_provider.dart';
 import 'package:camera_application/model/user.dart';
 import 'package:camera_application/photo_service.dart';
 import 'package:camera_application/state/application_state.dart';

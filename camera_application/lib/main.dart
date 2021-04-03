@@ -1,7 +1,6 @@
 
 import 'dart:io';
 
-import 'package:camera_application/connection_status.dart';
 import 'package:camera_application/home.dart';
 import 'package:camera_application/login_form.dart';
 import 'package:camera_application/maps_page.dart';
@@ -17,12 +16,23 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'gallary.dart';
 
 final storage = FlutterSecureStorage();
-void main() {
-  runApp(MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+        supportedLocales: [Locale('en', ''), Locale('ar', '')],
+        path: 'assets/translations', // <-- change the path of the translation files
+        fallbackLocale: Locale('en', ''),
+        child: MyApp()
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -35,6 +45,9 @@ class MyApp extends StatelessWidget {
         })
       ],
       child: MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         title: 'login Screen',
         routes: {
           '/login': (context) => MainPage(),
